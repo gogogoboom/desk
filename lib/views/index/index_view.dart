@@ -1,9 +1,8 @@
-import 'package:desk/common/global/config.dart';
 import 'package:desk/common/global/i_style.dart';
-import 'package:desk/common/icon/antd_icons.dart';
 import 'package:desk/views/home/home_view.dart';
 import 'package:desk/views/meet/meet_view.dart';
 import 'package:desk/views/mine/home_mine_view.dart';
+import 'package:desk/views/pages/homePage.dart' as h;
 import 'package:desk/views/room/room_view.dart';
 import 'package:desk/views/selection/selection_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,91 +29,83 @@ class IndexPage extends GetView<IndexLogic> {
   }
 
   Widget get _indexView => PersistentTabView(
-        Get.context!,
-        // controller: controller.tabController,
-        screens: _buildScreens(),
-        items: _navBarsItems(),
-        confineInSafeArea: true,
-        backgroundColor: Get.theme.backgroundColor,
-        navBarHeight: 60,
-        // Default is Colors.white.
-        handleAndroidBackButtonPress: true,
-        // Default is true.
-        resizeToAvoidBottomInset: true,
-        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-        stateManagement: true,
-        // Default is true.
-        hideNavigationBarWhenKeyboardShows: true,
-        // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          colorBehindNavBar: Get.theme.backgroundColor,
+    Get.context!,
+    controller: controller.tabController,
+    screens: _buildScreens(),
+    items: _navBarsItems(),
+    confineInSafeArea: true,
+    backgroundColor: Colors.white,
+    handleAndroidBackButtonPress: true,
+    resizeToAvoidBottomInset: true,
+    stateManagement: true,
+    navBarHeight: MediaQuery.of(Get.context!).viewInsets.bottom > 0
+        ? 0.0
+        : kBottomNavigationBarHeight,
+    hideNavigationBarWhenKeyboardShows: true,
+    margin: EdgeInsets.all(0.0),
+    popActionScreens: PopActionScreensType.all,
+    bottomScreenMargin: 0.0,
+    onWillPop: (context) async {
+      await showDialog(
+        context: Get.context!,
+        useSafeArea: true,
+        builder: (context) => Container(
+          height: 50.0,
+          width: 50.0,
+          color: Colors.white,
+          child: ElevatedButton(
+            child: Text("Close"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
-        popAllScreensOnTapOfSelectedTab: true,
-        popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: const ItemAnimationProperties(
-          // Navigation Bar's items animation properties.
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
-        ),
-        // screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
-        //   animateTabTransition: true,
-        //   curve: Curves.ease,
-        //   duration: Duration(milliseconds: 200),
-        // ),
-        navBarStyle:
-            NavBarStyle.style17, // Choose the nav bar style with this property.
       );
+      return false;
+    },
+    selectedTabScreenContext: (context) {
+    },
+    // hideNavigationBar: _hideNavBar,
+    decoration: NavBarDecoration(
+        colorBehindNavBar: Colors.indigo,
+        borderRadius: BorderRadius.circular(20.0)),
+    popAllScreensOnTapOfSelectedTab: true,
+    navBarStyle:
+    NavBarStyle.style15, // Choose the nav bar style with this property
+  );
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
-    double size = Config.iconNormalSize;
     return [
       PersistentBottomNavBarItem(
-        // icon: Icon(CupertinoIcons.home, size: size,),
-        inactiveIcon: const Icon(Icons.apps),
-        icon: const Icon(Icons.apps, color: IColors.primarySwatch),
+        icon: Icon(Icons.home),
         title: 'home'.tr,
-        // onPressed: (_) => controller.selectIndex(0),
         activeColorPrimary: IColors.primarySwatch,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(Icons.apps),
-        icon: const Icon(Icons.apps, color: IColors.primarySwatch),
-        title: 'selection'.tr,
-        // onPressed: (_) => controller.selectIndex(1),
+        icon: Icon(Icons.search),
+        title: ('selection'.tr),
         activeColorPrimary: IColors.primarySwatch,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        // icon: Icon(CupertinoIcons.doc_text_search, size: size),
-        // inactiveIcon: const Icon(Icons.apps),
-        icon: const Icon(Icons.apps, color: IColors.primarySwatch),
-        // title: 'room'.tr,
-        // onPressed: (_) => controller.selectIndex(2),
+          icon: Icon(Icons.roofing),
+          title: ('room'.tr),
         activeColorPrimary: IColors.primarySwatch,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+          activeColorSecondary: Colors.white,
+        inactiveColorPrimary: Colors.grey,),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.message),
+        title: ('meet'.tr),
+        activeColorPrimary: IColors.primarySwatch,
+        inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        // icon: Icon(CupertinoIcons.doc_text_search, size: size),
-        inactiveIcon: const Icon(Icons.apps),
-        icon: const Icon(Icons.apps, color: IColors.primarySwatch),
-        title: 'meet'.tr,
-        // onPressed: (_) => controller.selectIndex(3),
+        icon: Icon(Icons.person_outline),
+        title: ('mine'.tr),
         activeColorPrimary: IColors.primarySwatch,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        // icon: Icon(CupertinoIcons.doc_text_search, size: size),
-        inactiveIcon: const Icon(Icons.apps),
-        icon: const Icon(Icons.apps, color: IColors.primarySwatch),
-        title: 'mine'.tr,
-        // onPressed: (_) => controller.selectIndex(4),
-        activeColorPrimary: IColors.primarySwatch,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: Colors.grey,
       ),
     ];
   }
-
-  _navIcon(name, {color}) => const Icon(Icons.apps);
 }

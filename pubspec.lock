@@ -1022,6 +1022,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.2"
+  safemap:
+    dependency: "direct main"
+    description:
+      name: safemap
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   shared_preferences:
     dependency: transitive
     description:
@@ -1153,6 +1160,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  tapped:
+    dependency: "direct main"
+    description:
+      name: tapped
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   tcard:
     dependency: "direct main"
     description:
@@ -1287,7 +1301,7 @@ packages:
     source: hosted
     version: "2.0.0"
   video_player:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: video_player
       url: "https://pub.flutter-io.cn"
