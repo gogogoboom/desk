@@ -1,0 +1,20 @@
+import 'package:desk/common/base/base_appbar.dart';
+import 'package:desk/common/base/base_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'room_logic.dart';
+
+class RoomPage extends GetView<RoomLogic> {
+  const RoomPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseScaffold(
+      appBar: baseAppbar(
+        title: 'room'.tr,
+        elevation: 0,
+      ),
+    );
+  }
+}
